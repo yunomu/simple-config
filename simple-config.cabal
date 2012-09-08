@@ -1,0 +1,28 @@
+Name:                simple-config
+Version:             0.1
+Synopsis:            S
+Description:         Simple config file parser generator
+Homepage:            https://github.com/yunomu/simple-config
+License:             BSD3
+License-file:        LICENSE
+Author:              Yusuke Nomura
+Maintainer:          yunomu@gmail.com
+-- Copyright:           
+Category:            Text
+Build-type:          Simple
+
+Cabal-version:       >=1.2
+
+Library
+  Exposed-modules:   Text.Config
+  Ghc-options:       -Wall
+  Build-depends:     base
+                   , network
+                   , parsec3
+                   , bytestring
+                   , transformers
+                   , data-default
+                   , template-haskell
+
+  Other-modules:       
+
