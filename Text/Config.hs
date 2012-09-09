@@ -21,9 +21,23 @@
 -- >     , text :: String
 -- >     , list :: [String]
 -- >     }
+-- >   deriving (Show)
+-- >
+-- > instance Default TestConfig where
+-- >     def = TestConfig
+-- >         { uri = "http://localhost/"
+-- >         , text = ""
+-- >         , list = []
+-- >         }
 -- > 
 -- > configParser :: Parser TestConfig
 -- > configParser = ...
+--
+-- Its parser is able to parse following string.
+--
+-- > uri: http://example.com/content.html
+-- > text: wakaruwa
+-- > list: kaede, kirari, momoka
 --
 module Text.Config
     ( -- * Types
