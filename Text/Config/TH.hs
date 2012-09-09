@@ -1,7 +1,9 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE ConstraintKinds #-}
 module Text.Config.TH
-    ( mkConfig
+    ( -- * Generate
+      mkConfig
+      -- * Quote
     , config
     ) where
 
