@@ -5,6 +5,7 @@ data ConfType
     = ConfString
     | ConfURI
     | ConfInt
+    | ConfByteString
     | ConfList ConfType
   deriving (Show)
 

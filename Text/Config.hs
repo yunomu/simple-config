@@ -12,14 +12,20 @@
 -- >     uri  URI
 -- >     text String
 -- >     list [String]
+-- >     val  Int
+-- >     vals [Int]
+-- >     bs   ByteString
 -- > |]
 --
 -- The example generates following codes.
 --
 -- > data TestConfig = TestConfig
--- >     { uri  :: String
+-- >     { uri :: String
 -- >     , text :: String
 -- >     , list :: [String]
+-- >     , val :: Int
+-- >     , vals :: [Int]
+-- >     , bs :: ByteString
 -- >     }
 -- >   deriving (Show)
 -- >
@@ -28,6 +34,9 @@
 -- >         { uri = "http://localhost/"
 -- >         , text = ""
 -- >         , list = []
+-- >         , val = 0
+-- >         , vals = []
+-- >         , bs = ""
 -- >         }
 -- > 
 -- > configParser :: Parser TestConfig
@@ -38,6 +47,9 @@
 -- > uri: http://example.com/content.html
 -- > text: wakaruwa
 -- > list: kaede, kirari, momoka
+-- > val: 28
+-- > vals: 25, 17, 12
+-- > bs: chihiro
 --
 module Text.Config
     ( -- * Types

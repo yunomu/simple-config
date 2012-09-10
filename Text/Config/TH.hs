@@ -15,6 +15,8 @@ import Text.Parsec.ByteString (Parser)
 import Data.Default
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.State
+import Data.ByteString (ByteString)
+import qualified Data.ByteString as BS
 
 import Text.Config.Parser
 import Text.Config.Types
@@ -58,6 +60,7 @@ mkRecord recName confLines =
     confTypeQ ConfString = [t|String|]
     confTypeQ ConfURI = [t|String|]
     confTypeQ ConfInt = [t|Int|]
+    confTypeQ ConfByteString = [t|ByteString|]
     confTypeQ (ConfList ctype) = [t|[$(confTypeQ ctype)]|]
 
 {-
@@ -75,6 +78,7 @@ instanceDef recName confLines =
     defVal (n, ConfString) = (,) (mkName n) <$> [|""|]
     defVal (n, ConfURI)    = (,) (mkName n) <$> [|"http://localhost/"|]
     defVal (n, ConfInt)    = (,) (mkName n) <$> [|0::Int|]
+    defVal (n, ConfByteString)    = (,) (mkName n) <$> [|BS.empty|]
     defVal (n, ConfList _) = (,) (mkName n) <$> [|[]|]
 
 mkParsers :: Name -> [ConfLine] -> DecsQ
@@ -138,6 +142,7 @@ confParser :: ConfType -> ExpQ
 confParser ConfString = [|cv_string|]
 confParser ConfURI = [|cv_uri|]
 confParser ConfInt = [|cv_int|]
+confParser ConfByteString = [|cv_bytestring|]
 confParser (ConfList ctype) = [|cv_list $(confParser ctype)|]
 
 val :: Parser a -> String -> Parser a

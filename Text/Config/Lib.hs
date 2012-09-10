@@ -5,6 +5,8 @@ import Text.Parsec
 import Text.Parsec.ByteString
 import Control.Applicative hiding (many, (<|>))
 import Network.URI
+import Data.ByteString (ByteString)
+import qualified Data.ByteString.Char8 as BC
 
 comment :: Parser ()
 comment = () <$ string "--" <* many (noneOf "\n")
@@ -29,6 +31,9 @@ spc = satisfy (`elem` " \t")
 
 cv_string :: Parser String
 cv_string = many1 (noneOf ", \t\r\n") <* spcs
+
+cv_bytestring :: Parser ByteString
+cv_bytestring = BC.pack <$> cv_string
 
 cv_list :: Parser p -> Parser [p]
 cv_list p = sepBy p (spcs *> char ',' <* spcs) <* spcs

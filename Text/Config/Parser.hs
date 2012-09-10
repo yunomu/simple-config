@@ -36,10 +36,11 @@ confLine = (,)
     <*> (confType <* spcs <* commentLines)
 
 confType :: Parser ConfType
-confType = choice [typeString, typeUri, typeInt, typeList]
+confType = choice [typeByteString, typeString, typeUri, typeInt, typeList]
   where
     typeString = string "String" *> return ConfString
     typeUri = string "URI" *> return ConfURI
     typeInt = string "Int" *> return ConfInt
+    typeByteString = string "ByteString" *> return ConfByteString
     typeList = ConfList <$> (char '[' *> confType) <* char ']'
 
