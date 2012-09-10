@@ -57,6 +57,7 @@ mkRecord recName confLines =
     confTypeQ :: ConfType -> TypeQ
     confTypeQ ConfString = [t|String|]
     confTypeQ ConfURI = [t|String|]
+    confTypeQ ConfInt = [t|Int|]
     confTypeQ (ConfList ctype) = [t|[$(confTypeQ ctype)]|]
 
 {-
@@ -73,6 +74,7 @@ instanceDef recName confLines =
     defVal :: ConfLine -> Q (Name, Exp)
     defVal (n, ConfString) = (,) (mkName n) <$> [|""|]
     defVal (n, ConfURI)    = (,) (mkName n) <$> [|"http://localhost/"|]
+    defVal (n, ConfInt)    = (,) (mkName n) <$> [|0::Int|]
     defVal (n, ConfList _) = (,) (mkName n) <$> [|[]|]
 
 mkParsers :: Name -> [ConfLine] -> DecsQ
@@ -135,6 +137,7 @@ parserName name = mkName $ "val_" ++ name
 confParser :: ConfType -> ExpQ
 confParser ConfString = [|cv_string|]
 confParser ConfURI = [|cv_uri|]
+confParser ConfInt = [|cv_int|]
 confParser (ConfList ctype) = [|cv_list $(confParser ctype)|]
 
 val :: Parser a -> String -> Parser a

@@ -4,6 +4,7 @@ module Text.Config.Types
 data ConfType
     = ConfString
     | ConfURI
+    | ConfInt
     | ConfList ConfType
   deriving (Show)
 

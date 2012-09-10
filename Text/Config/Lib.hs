@@ -40,6 +40,9 @@ cv_uri = do
       then return str
       else fail "parse error: URI"
 
+cv_int :: Parser Int
+cv_int = read <$> many1 digit <* spcs
+
 sep :: Parser ()
 sep = () <$ char ':' *> spcs
 
