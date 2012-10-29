@@ -1,5 +1,5 @@
 Name:                simple-config
-Version:             1.2.0
+Version:             1.2.1
 Synopsis:            Simple config file parser generator
 Description:         Simple config file parser generator
 Homepage:            https://github.com/yunomu/simple-config
@@ -19,7 +19,7 @@ Library
                      -fno-warn-unused-do-bind
   Build-depends:     base >= 4 && < 5
                    , network
-                   , parsec3
+                   , parsec
                    , bytestring
                    , transformers
                    , data-default
