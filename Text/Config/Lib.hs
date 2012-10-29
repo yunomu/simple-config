@@ -30,7 +30,12 @@ spc :: Parser Char
 spc = satisfy (`elem` " \t")
 
 cv_string :: Parser String
-cv_string = many1 (noneOf ", \t\r\n") <* spcs
+cv_string = try $ do
+    char '"'
+    str <- many1 (noneOf "\"\r\n")
+    char '"'
+    return str
+  <|> many1 (noneOf ", \t\r\n") <* spcs
 
 cv_bytestring :: Parser ByteString
 cv_bytestring = BC.pack <$> cv_string
@@ -50,4 +55,3 @@ cv_int = read <$> many1 digit <* spcs
 
 sep :: Parser ()
 sep = () <$ char ':' *> spcs
-
