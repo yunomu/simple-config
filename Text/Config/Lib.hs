@@ -9,10 +9,13 @@ import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as BC
 
 comment :: Parser ()
-comment = () <$ string "--" <* many (noneOf "\n")
+comment = () <$ string "--" <* many (noneOf "\r\n")
 
 commentLine :: Parser ()
-commentLine = () <$ (comment *> newline <|> newline)
+commentLine = comment *> nl <|> nl
+
+nl :: Parser ()
+nl = () <$ try (string "\r\n") <|> () <$ char '\n'
 
 commentLines :: Parser ()
 commentLines = () <$ many commentLine
