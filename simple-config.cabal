@@ -1,5 +1,5 @@
 Name:                simple-config
-Version:             1.2.2
+Version:             1.2.2.1
 Synopsis:            Simple config file parser generator
 Description:         Simple config file parser generator
 Homepage:            https://github.com/yunomu/simple-config
@@ -13,17 +13,25 @@ Build-type:          Simple
 
 Cabal-version:       >=1.6
 
+flag network-uri
+  description: Get Network.URI from the network-uri package
+  default: True
+
 Library
   Exposed-modules:   Text.Config
   Ghc-options:       -Wall
                      -fno-warn-unused-do-bind
   Build-depends:     base >= 4 && < 5
-                   , network
                    , parsec
                    , bytestring
                    , transformers
                    , data-default
                    , template-haskell
+  if flag(network-uri)
+    Build-depends:   network-uri >= 2.6
+  else
+    Build-depends:   network < 2.6
+
 
   Other-modules:     Text.Config.TH
                    , Text.Config.Lib
@@ -31,6 +39,13 @@ Library
                    , Text.Config.Types
 
 Source-repository head
-    Type:            git
-    Location:        git://github.com/yunomu/simple-config.git
+  Type:            git
+  Location:        git://github.com/yunomu/simple-config.git
 
+test-suite spec
+  type:            exitcode-stdio-1.0
+  hs-source-dirs:  test
+  ghc-options:     -Wall
+  main-is:         Spec.hs
+  build-depends:   base >= 4 && < 5
+                 , hspec
